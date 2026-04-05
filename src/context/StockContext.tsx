@@ -1,6 +1,9 @@
+// O topo do arquivo deve ficar assim:
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { collection, onSnapshot, doc, setDoc, writeBatch } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 export type StockCategory = 'Instrumentos' | 'EPI / Higiene' | 'Consumíveis' | 'Tintas' | 'Stencil' | 'Uso Geral';
 
@@ -83,38 +86,68 @@ export function StockProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
     const [seeded, setSeeded] = useState(false);
 
+    // Substitua o useEffect atual por:
     useEffect(() => {
-        const unsub = onSnapshot(collection(db, 'estoque'), (snapshot) => {
-            if (snapshot.empty && !seeded) {
-                setSeeded(true);
-                seedInitialStock();
+        let unsubStock: (() => void) | null = null;
+
+        const unsubAuth = onAuthStateChanged(auth, (user) => {
+            // Se tinha listener anterior, cancela
+            if (unsubStock) {
+                unsubStock();
+                unsubStock = null;
+            }
+
+            if (!user) {
+                setStock([]);
+                setLoading(false);
                 return;
             }
 
-            const items: StockItem[] = snapshot.docs.map(docSnap => {
-                const d = docSnap.data();
-                return {
-                    id: d.id ?? 0,
-                    firestoreId: docSnap.id,
-                    name: d.name ?? '',
-                    category: d.category ?? 'Uso Geral',
-                    qty: Number(d.qty) ?? 0, // Garantindo que seja número
-                    min: d.min ?? 0,
-                    unit: d.unit ?? 'un',
-                    unitCost: Number(d.unitCost) ?? 0,
-                    qtdPorPacote: d.qtdPorPacote ? Number(d.qtdPorPacote) : undefined,
-                    unidadeDeUso: d.unidadeDeUso ?? undefined,
-                };
-            });
+            // Só inicia o listener quando autenticado
+            setLoading(true);
+            unsubStock = onSnapshot(
+                collection(db, 'estoque'),
+                (snapshot) => {
+                    if (snapshot.empty && !seeded) {
+                        setSeeded(true);
+                        seedInitialStock();
+                        return;
+                    }
 
-            items.sort((a, b) => a.id - b.id);
-            setStock(items);
-            setLoading(false);
+                    const items: StockItem[] = snapshot.docs.map(docSnap => {
+                        const d = docSnap.data();
+                        return {
+                            id: d.id ?? 0,
+                            firestoreId: docSnap.id,
+                            name: d.name ?? '',
+                            category: d.category ?? 'Uso Geral',
+                            qty: Number(d.qty) ?? 0,
+                            min: d.min ?? 0,
+                            unit: d.unit ?? 'un',
+                            unitCost: Number(d.unitCost) ?? 0,
+                            qtdPorPacote: d.qtdPorPacote ? Number(d.qtdPorPacote) : undefined,
+                            unidadeDeUso: d.unidadeDeUso ?? undefined,
+                        };
+                    });
+
+                    items.sort((a, b) => a.id - b.id);
+                    setStock(items);
+                    setLoading(false);
+                },
+                (error) => {
+                    if (error.code !== 'permission-denied') {
+                        console.error('Erro Firestore estoque:', error);
+                    }
+                    setLoading(false);
+                }
+            );
         });
 
-        return () => unsub();
+        return () => {
+            unsubAuth();
+            if (unsubStock) unsubStock();
+        };
     }, [seeded]);
-
     const seedInitialStock = async () => {
         const batch = writeBatch(db);
         for (const item of initialStock) {

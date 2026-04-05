@@ -1058,7 +1058,14 @@ export function AdminDashboard() {
                 scheduledAt: updated.scheduledAt ?? null,
                 anamneseUploaded: updated.anamneseUploaded ?? false,
                 ...(updated.anamneseUrl ? { anamneseUrl: updated.anamneseUrl } : {}),
-                sessionMaterials: updated.sessionMaterials,
+                ssessionMaterials: updated.sessionMaterials.map(m => ({
+                    stockId: m.stockId,
+                    name: m.name,
+                    qty: m.qty,
+                    unitCost: m.unitCost,
+                    unit: m.unit,
+                    ...(m.qtyPerPkg !== undefined ? { qtyPerPkg: m.qtyPerPkg } : {}),
+                })),
             };
             await updateDoc(doc(db, 'budgets', updated.firestoreId), dataToUpdate);
 
