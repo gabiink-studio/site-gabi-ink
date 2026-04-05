@@ -47,7 +47,8 @@ function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6"
+      style={{ background: 'radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 60%), #0D0C09' }}>
       <div className="animate-[fadeIn_0.6s_ease] mb-4">
         <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] via-[#E2C97E] to-[#C9A84C] tracking-wider text-center">
           GABIINK
