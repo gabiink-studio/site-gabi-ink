@@ -1177,8 +1177,11 @@ export function AdminDashboard() {
             {/* Table header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <h2 style={{ fontFamily: 'Playfair Display, serif', color: '#F0F0F0', fontSize: '22px', fontWeight: 700, margin: 0 }}>{pageTitle}</h2>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                        <h2 style={{
+                            fontFamily: 'Playfair Display, serif', color: '#F0F0F0', fontSize: '18px',
+                            lineHeight: 1.1, fontWeight: 700, margin: 0
+                        }}>{pageTitle}</h2>
                         {naoLidas > 0 && (
                             <span style={{ backgroundColor: '#E05252', color: '#fff', borderRadius: '9999px', padding: '2px 8px', fontSize: '11px', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, lineHeight: 1.4 }}>
                                 {naoLidas} {naoLidas === 1 ? 'novo' : 'novos'}
@@ -1186,21 +1189,47 @@ export function AdminDashboard() {
                         )}
                         {'Notification' in window && Notification.permission === 'default' && (
                             <button
-                                onClick={() => Notification.requestPermission()}
+                                onClick={async () => {
+                                    const result = await Notification.requestPermission();
+                                    if (result === 'granted') {
+                                        new Notification('GabiInk 🔔', {
+                                            body: 'Alertas ativados! Você será avisada de novos orçamentos.',
+                                            icon: '/favicon.ico',
+                                        });
+                                    }
+                                }}
                                 title="Ativar notificações no navegador"
-                                style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid #C9A84C', borderRadius: '6px', padding: '4px 10px', color: '#C9A84C', fontFamily: 'Montserrat, sans-serif', fontSize: '11px', fontWeight: 700, cursor: 'pointer', letterSpacing: '0.3px' }}
+                                style={{
+                                    borderRadius: '7px',
+                                    border: '1px solid #C9A84C',
+                                    padding: '6px 12px',
+                                    minHeight: '36px',         // ← toque confortável no mobile
+                                    color: '#C9A84C',
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    letterSpacing: '0.3px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '5px',
+                                    WebkitTapHighlightColor: 'transparent', // ← remove flash azul no iOS
+                                }}
                             >
-                                🔔 Ativar alertas
+                                Ativar alertas
                             </button>
                         )}
-                    </div>                    <p style={{ color: '#4A4A4A', fontFamily: 'Inter, sans-serif', fontSize: '13px', margin: '2px 0 0' }}>
+                    </div>
+                    <p style={{ color: '#5C5C5C', fontFamily: 'Inter, sans-serif', fontSize: '12px', margin: '4px 0 0' }}>
                         {filtered.length} {filtered.length === 1 ? 'registro' : 'registros'} encontrados
                     </p>
                 </div>
-                <button onClick={() => setNewBudget(newEmptyBudget())}
+                <button
+                    onClick={() => setNewBudget(newEmptyBudget())}
                     style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #C9A84C, #E2C97E)', color: '#1E1E1E', border: 'none', borderRadius: '8px', padding: '10px 18px', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '12px', letterSpacing: '0.5px', cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' as const }}
                     onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 16px rgba(201,168,76,0.35)'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none'; }}>
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none'; }}
+                >
                     <UserPlus size={15} /> Novo Orçamento
                 </button>
             </div>

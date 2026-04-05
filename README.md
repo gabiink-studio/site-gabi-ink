@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Gabiink Tattoo Studio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido para o **Gabiink Tattoo Studio**, com foco em presença digital, identidade visual, organização interna e experiência do usuário.
 
-Currently, two official plugins are available:
+## Sobre o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este repositório reúne o desenvolvimento do sistema/site do **Gabiink Tattoo Studio**.  
+A aplicação foi pensada para apoiar a apresentação profissional do estúdio e também a organização de processos internos.
 
-## React Compiler
+Além da presença digital, o projeto contempla estrutura para evolução de funcionalidades administrativas e operacionais do estúdio.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
+- Apresentação institucional do estúdio.
+- Exibição de identidade visual e proposta da marca.
+- Formulário de orçamento.
+- Organização de clientes e atendimentos.
+- Controle de materiais e estoque.
+- Estrutura para integração com fluxo financeiro.
+- Base administrativa para futuras expansões do sistema.
+- Interface moderna, responsiva e escalável.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tecnologias utilizadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Backend e serviços
+- Firebase
+- Firestore
+- Firebase Storage
+- Firebase Authentication
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Design e prototipação
+- Figma
+
+## Estrutura do projeto
+
+```bash
+src/
+├── app/
+├── components/
+├── components/admin/
+├── context/
+├── styles/
+├── routes.ts
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Autora
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Projeto desenvolvido por **Kalyta Almeida**, responsável pela estruturação, desenvolvimento e organização técnica da aplicação.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Confidencialidade
+
+Este repositório é **privado** e contém materiais, informações, estruturas, códigos e conteúdos de uso restrito.
+
+O acesso a este projeto não concede autorização para:
+- compartilhar arquivos, imagens, textos, códigos ou documentos;
+- copiar total ou parcialmente qualquer conteúdo presente neste repositório;
+- reproduzir, redistribuir, publicar ou reutilizar materiais fora do contexto original do projeto;
+- utilizar a estrutura, identidade, lógica, documentação ou qualquer ativo relacionado sem autorização expressa.
+
+Todo o conteúdo aqui disponibilizado deve ser tratado como confidencial.
+
+## Licença
+
+Este projeto **não possui licença de uso aberto**.
+
+Todos os direitos estão reservados.  
+É proibido copiar, modificar, distribuir, publicar, sublicenciar ou reutilizar qualquer parte deste repositório sem autorização prévia, expressa e formal da responsável pelo projeto.
+
+## Observações
+
+Este README descreve um projeto em desenvolvimento contínuo e pode ser atualizado conforme a evolução das entregas e funcionalidades.
