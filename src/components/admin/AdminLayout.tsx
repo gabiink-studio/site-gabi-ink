@@ -80,11 +80,21 @@ function AdminLogin() {
               onFocus={() => setFocused('email')}
               onBlur={() => setFocused(null)}
               placeholder="admin@gabiink.com"
-              className="modern-input w-full"
-              style={{
-                borderColor: focused === 'email' ? '#C9A84C' : 'rgba(201, 168, 76, 0.2)'
-              }}
               required
+              style={{
+                width: '100%',
+                background: 'rgba(255,255,255,0.06)',
+                border: `1px solid ${focused === 'email' ? '#C9A84C' : 'rgba(201,168,76,0.25)'}`,
+                borderRadius: '10px',
+                color: '#F0F0F0',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                padding: '13px 16px',
+                outline: 'none',
+                boxShadow: focused === 'email' ? '0 0 0 3px rgba(201,168,76,0.12)' : 'none',
+                transition: 'border-color 0.2s, box-shadow 0.2s',
+                boxSizing: 'border-box' as const,
+              }}
             />
           </div>
           <div>
@@ -97,16 +107,41 @@ function AdminLogin() {
                 onFocus={() => setFocused('password')}
                 onBlur={() => setFocused(null)}
                 placeholder="••••••••"
-                className="modern-input w-full pr-12"
-                style={{
-                  borderColor: focused === 'password' ? '#C9A84C' : 'rgba(201, 168, 76, 0.2)'
-                }}
                 required
+                style={{
+                  width: '100%',
+                  background: 'rgba(255,255,255,0.06)',
+                  border: `1px solid ${focused === 'password' ? '#C9A84C' : 'rgba(201,168,76,0.25)'}`,
+                  borderRadius: '10px',
+                  color: '#F0F0F0',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  padding: '13px 48px 13px 16px',
+                  outline: 'none',
+                  boxShadow: focused === 'password' ? '0 0 0 3px rgba(201,168,76,0.12)' : 'none',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                  boxSizing: 'border-box' as const,
+                }}
               />
               <button
                 type="button"
                 onClick={() => setShowPass(!showPass)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#C9A84C] transition-colors p-1"
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: '#4A4A4A',
+                  cursor: 'pointer',
+                  padding: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#C9A84C'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#4A4A4A'; }}
               >
                 {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -116,8 +151,27 @@ function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-gold w-full py-4 text-base font-semibold tracking-wide mt-2"
-            style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+            style={{
+              width: '100%',
+              padding: '15px',
+              marginTop: '8px',
+              background: 'linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%)',
+              backgroundSize: '200% 200%',
+              color: '#1A1508',
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase' as const,
+              border: 'none',
+              borderRadius: '10px',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.7 : 1,
+              boxShadow: '0 4px 20px rgba(201, 168, 76, 0.3)',
+              transition: 'box-shadow 0.2s, transform 0.15s',
+            }}
+            onMouseEnter={e => { if (!loading) { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 6px 28px rgba(201,168,76,0.45)'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)'; } }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 20px rgba(201,168,76,0.3)'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; }}
           >
             {loading ? 'Entrando...' : 'Entrar no Painel'}
           </button>

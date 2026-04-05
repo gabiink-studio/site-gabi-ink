@@ -205,26 +205,103 @@ export function OrcamentoPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6">
-        <div className="animate-[fadeIn_0.6s_ease]">
-          <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] via-[#E2C97E] to-[#C9A84C] tracking-wider">
-            GABIINK
-          </h1>
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px',
+        background: 'radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 60%), #0D0C09',
+      }}>
+        {/* Logo */}
+        <div style={{ marginBottom: '48px', textAlign: 'center', animation: 'fadeIn 0.6s ease' }}>
+          <h1 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+            fontWeight: 700,
+            background: 'linear-gradient(90deg, #C9A84C, #E2C97E, #C9A84C)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '0.15em',
+            margin: 0,
+          }}>GABIINK TATTOO STUDIO</h1>
         </div>
-        <div className="glass-card max-w-md w-full text-center mt-12 p-12 animate-[fadeIn_0.8s_ease_0.2s_both]">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B89840] mb-6 animate-[glow_2s_ease-in-out_infinite]">
-            <CheckCircle size={40} className="text-[#1A1A1A]" />
+
+        {/* Card */}
+        <div style={{
+          maxWidth: '420px',
+          width: '100%',
+          textAlign: 'center',
+          background: 'rgba(20, 18, 14, 0.75)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(201,168,76,0.18)',
+          borderRadius: '20px',
+          boxShadow: '0 0 0 1px rgba(201,168,76,0.06), 0 24px 64px rgba(0,0,0,0.6)',
+          padding: '48px 40px',
+          animation: 'fadeIn 0.8s ease 0.2s both',
+        }}>
+          {/* Ícone */}
+          <div style={{
+            width: '80px',
+            height: '80px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #C9A84C, #B89840)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 28px',
+            boxShadow: '0 0 32px rgba(201,168,76,0.3)',
+          }}>
+            <CheckCircle size={38} color="#1A1508" strokeWidth={2.5} />
           </div>
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-white mb-4">
-            Solicitação Enviada!
-          </h2>
-          <p className="text-gray-300 text-base leading-relaxed mb-8">
-            Sua solicitação foi enviada com sucesso. Entraremos
-            em contato via WhatsApp em breve.
+
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: '28px',
+            fontWeight: 700,
+            color: '#F0F0F0',
+            marginBottom: '12px',
+          }}>Solicitação Enviada!</h2>
+
+          <p style={{
+            fontFamily: 'Inter, sans-serif',
+            color: '#A0A0A0',
+            fontSize: '15px',
+            lineHeight: 1.7,
+            marginBottom: '36px',
+          }}>
+            Sua solicitação foi enviada com sucesso.<br />
+            Entraremos em contato via WhatsApp em breve.
           </p>
+
           <button
             onClick={() => setSubmitted(false)}
-            className="btn-gold w-full py-4 text-base font-semibold tracking-wide"
+            style={{
+              width: '100%',
+              padding: '15px',
+              background: 'linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%)',
+              backgroundSize: '200% 200%',
+              color: '#1A1508',
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase' as const,
+              border: 'none',
+              borderRadius: '10px',
+              cursor: 'pointer',
+              boxShadow: '0 4px 20px rgba(201,168,76,0.3)',
+              transition: 'box-shadow 0.2s, transform 0.15s',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 6px 28px rgba(201,168,76,0.45)';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 20px rgba(201,168,76,0.3)';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)';
+            }}
           >
             Novo Orçamento
           </button>
