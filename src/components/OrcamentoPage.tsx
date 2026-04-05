@@ -237,7 +237,7 @@ export function OrcamentoPage() {
     // ✅ DEPOIS
     <div className="min-h-screen" style={{ position: "relative" }}>
       <video autoPlay muted playsInline style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}>
-        <source src="/onca4.webm" type="video/webm" />
+        <source src={`${import.meta.env.BASE_URL}onca4.webm`} type="video/webm" />
       </video>
       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.7)", zIndex: 1 }} />
       <div style={{ position: "relative", zIndex: 2 }}>
