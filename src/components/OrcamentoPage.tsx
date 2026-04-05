@@ -821,7 +821,7 @@ export function OrcamentoPage() {
             }}
           >
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/gaabiink?igsh=MWw4MnN4cG5oM2gwcA=="
               target="_blank"
               rel="noreferrer"
               style={{
@@ -836,7 +836,7 @@ export function OrcamentoPage() {
                 letterSpacing: "1px",
               }}
             >
-              <Instagram size={20} /> @gabiink
+              <Instagram size={20} /> @gaabiink
             </a>
             <a
               href={`https://wa.me/${WHATSAPP_NUMBER}`}
