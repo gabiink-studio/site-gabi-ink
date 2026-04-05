@@ -13,7 +13,7 @@ import {
   X,
   Settings,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const WHATSAPP_NUMBER = "5527998516063";
 

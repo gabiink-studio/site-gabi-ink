@@ -3,7 +3,7 @@ import type { User } from 'firebase/auth';
 import { auth, db } from '../../lib/firebase';
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, where } from 'firebase/firestore';
 import React, { useState, useEffect, useRef } from 'react';
-import { Outlet, useNavigate, useLocation, useSearchParams, Link } from 'react-router';
+import { Outlet, useNavigate, useLocation, useSearchParams, Link } from 'react-router-dom';
 import {
   ClipboardList, CalendarDays, Scissors, CheckCircle2,
   Archive, Trash2, Package, Bell, LogOut, Menu, X,
