@@ -391,7 +391,7 @@ export function OrcamentoPage() {
                       type="button"
                       onClick={() =>
                         window.open(
-                          `https://wa.me/${5527998516063}?text=${encodeURIComponent("Olá! Sou menor de idade e preciso do modelo de autorização para tatuagem.")}`,
+                          `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Sou menor de idade e preciso do modelo de autorização para tatuagem.")}`,
                           "_blank",
                         )
                       }
