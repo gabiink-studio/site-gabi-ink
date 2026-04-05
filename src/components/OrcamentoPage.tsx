@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const WHATSAPP_NUMBER = "5527998516063";
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER;
 
 const inputBase: React.CSSProperties = {
   width: "100%",
