@@ -45,6 +45,8 @@ interface Budget {
     deleted?: boolean;
     anamneseUrl?: string;
     visualizada?: boolean;
+    autorizacaoURL?: string;
+    precisaModelo?: boolean;
 }
 
 const statusConfig: Record<Status, { bg: string; color: string; label: string }> = {
@@ -230,6 +232,7 @@ function ClientModal({ budget, onClose, onSave, onCreated }: {
     const [expandImg, setExpandImg] = useState(false);
     const [showMaterialDD, setShowMaterialDD] = useState(false);
     const [savedSuccess, setSavedSuccess] = useState(false);
+    const [realAuthUrl, setRealAuthUrl] = useState<string | null>(null);
 
     // Estado para a imagem real (Resolve o erro realImageUrl)
     const [realImageUrl, setRealImageUrl] = useState<string | null>(null);
@@ -241,15 +244,21 @@ function ClientModal({ budget, onClose, onSave, onCreated }: {
     // --- 3. EFEITO PARA BUSCAR IMAGEM ---
     useEffect(() => {
         const path = budget.referenceImg || (budget as any).fotoReferenciaURL;
-
-        console.log('Caminho da imagem encontrado:', path);
-
         if (path && typeof path === 'string' && path.startsWith('referencias/')) {
             const storage = getStorage();
             const imageRef = ref(storage, path);
             getDownloadURL(imageRef)
                 .then((url) => setRealImageUrl(url))
                 .catch((err) => console.error('Erro ao carregar link da foto:', err));
+        }
+
+        const authPath = budget.autorizacaoURL;
+        if (authPath && typeof authPath === "string" && authPath.startsWith("autorizacoes")) {
+            const storage = getStorage();
+            const authRef = ref(storage, authPath);
+            getDownloadURL(authRef)
+                .then(url => setRealAuthUrl(url))
+                .catch(err => console.error("Erro ao carregar autorização:", err));
         }
     }, [budget]);
 
@@ -563,6 +572,26 @@ function ClientModal({ budget, onClose, onSave, onCreated }: {
                                         <p style={{ color: '#F0F0F0', fontFamily: 'Inter, sans-serif', fontSize: '14px', margin: 0 }}>{val}</p>
                                     </div>
                                 ))}
+
+                                {budget.precisaModelo && (
+                                    <div style={{ gridColumn: "1 / -1", marginTop: "8px", padding: "10px 14px", backgroundColor: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.4)", borderRadius: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span style={{ fontSize: "16px" }}>📄</span>
+                                        <p style={{ color: "#FFB3B3", fontFamily: "Inter, sans-serif", fontSize: "13px", margin: 0 }}>
+                                            <strong>Cliente precisa do modelo de autorização.</strong> Enviar via WhatsApp antes da sessão.
+                                        </p>
+                                    </div>
+                                )}
+                                {realAuthUrl && (
+                                    <div style={{ gridColumn: "1 / -1", marginTop: "8px" }}>
+                                        <p style={{ color: "#4A4A4A", fontFamily: "Montserrat, sans-serif", fontSize: "10px", fontWeight: 600, letterSpacing: "0.5px", textTransform: "uppercase", margin: "0 0 4px" }}>
+                                            Autorização do Responsável
+                                        </p>
+                                        <a href={realAuthUrl} target="_blank" rel="noreferrer"
+                                            style={{ color: "#C9A84C", fontFamily: "Inter, sans-serif", fontSize: "13px", display: "flex", alignItems: "center", gap: "6px" }}>
+                                            📄 Visualizar documento assinado
+                                        </a>
+                                    </div>
+                                )}
                             </div>
                         </section>
                     )}
@@ -940,7 +969,8 @@ export function AdminDashboard() {
                     })),
                     deleted: d.deleted === true,
                     visualizada: d.visualizada === true,
-
+                    autorizacaoURL: d.autorizacaoURL ?? undefined,
+                    precisaModelo: d.precisaModelo ?? false,
                 };
             });
             setBudgets(data);

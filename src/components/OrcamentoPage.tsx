@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { db, storage } from "../lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import { formatWhatsAppLink } from "../lib/formatWhatsApp";
 import { useForm } from "react-hook-form";
 import {
   Upload,
@@ -10,13 +9,11 @@ import {
   ImageIcon,
   CheckCircle,
   Instagram,
-  MessageCircle,
   X,
   Settings,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER;
 
 const inputBase: React.CSSProperties = {
   width: "100%",
@@ -169,6 +166,7 @@ export function OrcamentoPage() {
         localizacao: data.localizacao,
         fotoReferenciaURL: fotoURL,
         autorizacaoURL: autorizacaoURL,
+        precisaModelo: minorState === "needs-model",
         criadoEm: serverTimestamp(),
         status: "pendente",
         visualizada: false,
@@ -444,16 +442,21 @@ export function OrcamentoPage() {
                     <button
                       type="button"
                       onClick={() =>
-                        window.open(
-                          `${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${encodeURIComponent("Olá! Sou menor de idade e preciso do modelo de autorização para tatuagem.")}`,
-                          "_blank",
-                        )
+                        setMinorState(minorState === "needs-model" ? "none" : "needs-model")
                       }
-                      className="flex-1 min-w-[160px] py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.02] border border-red-300 text-red-200 hover:bg-red-900/30"
+                      className="flex-1 min-w-[160px] py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.02] border border-red-300 text-red-200"
+                      style={{
+                        background: minorState === "needs-model" ? "rgba(239,68,68,0.2)" : "transparent",
+                      }}
                     >
                       📄 Preciso do modelo
                     </button>
                   </div>
+                  {minorState === "needs-model" && (
+                    <p className="mt-3 text-sm text-red-200 leading-relaxed animate-[fadeIn_0.3s_ease]">
+                      ✅ Anotado! A tatuadora entrará em contato pelo WhatsApp para enviar o modelo de autorização.
+                    </p>
+                  )}
                   {minorState === "has-auth" && (
                     <div className="mt-6 animate-[fadeIn_0.3s_ease]">
                       <label
@@ -759,7 +762,7 @@ export function OrcamentoPage() {
                   (e.target as HTMLButtonElement).style.boxShadow = "none";
                 }}
               >
-                {isSubmitting ? "⏳ Enviando..." : "✉️ Enviar Solicitação via WhatsApp"}
+                {isSubmitting ? "Enviando..." : "Enviar Solicitação"}
               </button>
             </form>
           </div>
@@ -814,24 +817,6 @@ export function OrcamentoPage() {
               }}
             >
               <Instagram size={20} /> @gaabiink
-            </a>
-            <a
-              href={formatWhatsAppLink(WHATSAPP_NUMBER)}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                color: "#C9A84C",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                textDecoration: "none",
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "13px",
-                fontWeight: 600,
-                letterSpacing: "1px",
-              }}
-            >
-              <MessageCircle size={20} /> WhatsApp
             </a>
           </div>
           <p
