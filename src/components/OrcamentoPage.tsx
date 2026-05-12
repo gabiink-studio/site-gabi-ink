@@ -173,33 +173,9 @@ export function OrcamentoPage() {
         status: "pendente",
         visualizada: false,
       });
-      const message = encodeURIComponent(
-        `Olá, Gabiink! Gostaria de solicitar um orçamento:\n\n` +
-        `*Nome:* ${data.nome}\n` +
-        `*Idade:* ${data.idade} anos\n` +
-        `*Descrição:* ${data.descricao}\n` +
-        `*Tamanho:* ${data.tamanho}\n` +
-        `*Localização:* ${data.localizacao}\n\n` +
-        `Aguardo o retorno!`,
-      );
-      window.open(
-        `${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${message}`,
-        "_blank",
-      );
       setSubmitted(true);
     } catch (error) {
       console.error("Erro ao salvar orçamento:", error);
-      // Mesmo se o Firestore falhar, ainda abre o WhatsApp
-      const message = encodeURIComponent(
-        `Olá, GABIINK! Gostaria de solicitar um orçamento:\n\n` +
-        `*Nome:* ${data.nome}\n` +
-        `*Idade:* ${data.idade} anos\n` +
-        `*Descrição:* ${data.descricao}\n` +
-        `*Tamanho:* ${data.tamanho}\n` +
-        `*Localização:* ${data.localizacao}\n\n` +
-        `Aguardo o retorno!`,
-      );
-      window.open(`${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${message}`, "_blank");
       setSubmitted(true);
     }
   };
