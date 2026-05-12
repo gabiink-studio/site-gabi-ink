@@ -23,18 +23,21 @@ Além da presença digital, o projeto contempla estrutura para evolução de fun
 ## Tecnologias utilizadas
 
 ### Frontend
+
 - React
 - TypeScript
 - Vite
 - Tailwind CSS
 
 ### Backend e serviços
+
 - Firebase
 - Firestore
 - Firebase Storage
 - Firebase Authentication
 
 ### Design e prototipação
+
 - Figma
 
 ## Estrutura do projeto
@@ -59,6 +62,7 @@ Projeto desenvolvido por **Kalyta Almeida**, responsável pela estruturação, d
 Este repositório é **privado** e contém materiais, informações, estruturas, códigos e conteúdos de uso restrito.
 
 O acesso a este projeto não concede autorização para:
+
 - compartilhar arquivos, imagens, textos, códigos ou documentos;
 - copiar total ou parcialmente qualquer conteúdo presente neste repositório;
 - reproduzir, redistribuir, publicar ou reutilizar materiais fora do contexto original do projeto;

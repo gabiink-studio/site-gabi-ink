@@ -10,6 +10,7 @@ import {
     ZoomIn, FileImage, Save, ChevronDown, UserPlus, RefreshCcw
 } from 'lucide-react';
 import { useStock, getCustoUso, getUnidadeUso } from '../../context/StockContext';
+import { formatWhatsAppLink } from '../../lib/formatWhatsApp';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type Status = 'Pendente' | 'Agendado' | 'Em Atendimento' | 'Concluído' | 'Arquivado' | 'Lixeira';
@@ -1322,7 +1323,7 @@ export function AdminDashboard() {
                                             ) : (
                                                 <>
                                                     {/* WhatsApp */}
-                                                    <a href={`https://wa.me/${budget.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá, ${budget.client.split(' ')[0]}! Aqui é a GABIINK Tattoo Studio. 🐆`)}`}
+                                                    <a href={`${formatWhatsAppLink(budget.phone)}?text=${encodeURIComponent(`Olá, ${budget.client.split(' ')[0]}! Aqui é a Gabi. Vamos agendar seu horário?`)}`}
                                                         target="_blank" rel="noreferrer" title="WhatsApp"
                                                         style={{ background: 'none', border: '1px solid #2B2B2B', borderRadius: '6px', width: '32px', height: '32px', cursor: 'pointer', color: '#4A4A4A', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s', textDecoration: 'none', flexShrink: 0 }}
                                                         onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#25D366'; (e.currentTarget as HTMLAnchorElement).style.color = '#25D366'; }}

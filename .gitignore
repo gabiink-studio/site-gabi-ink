@@ -22,5 +22,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.env.local
+# Environment variables — NUNCA commitar
 .env
+.env.local
+.env.production
+.env.staging
+.env*.local
+.env*.production
+# Firebase — arquivos locais e de deploy
+.firebaserc
+.firebase/
+firebase.json
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Service account / chave privada (nunca no repo)
+*service-account*.json
+*serviceAccount*.json
+*-adminsdk-*.json

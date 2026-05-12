@@ -1,0 +1,15 @@
+# Dependências
+node_modules/
+
+# Build gerado
+lib/
+
+# Variáveis de ambiente locais
+.env
+.env.local
+.env*.local
+
+# Chaves e segredos
+*.key
+*.pem
+service-account*.json

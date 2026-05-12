@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { db, storage } from "../lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
+import { formatWhatsAppLink } from "../lib/formatWhatsApp";
 import { useForm } from "react-hook-form";
 import {
   Upload,
@@ -161,7 +162,7 @@ export function OrcamentoPage() {
       console.log("authFile:", authFile);
       await addDoc(collection(db, "budgets"), {
         nome: data.nome,
-        whatsapp: data.whatsapp,
+        whatsapp: data.whatsapp.replace(/\D/g, ""),
         idade: data.idade,
         descricao: data.descricao,
         tamanho: data.tamanho,
@@ -182,7 +183,7 @@ export function OrcamentoPage() {
         `Aguardo o retorno!`,
       );
       window.open(
-        `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${message}`,
+        `${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${message}`,
         "_blank",
       );
       setSubmitted(true);
@@ -198,7 +199,7 @@ export function OrcamentoPage() {
         `*Localização:* ${data.localizacao}\n\n` +
         `Aguardo o retorno!`,
       );
-      window.open(`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${message}`, "_blank");
+      window.open(`${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${message}`, "_blank");
       setSubmitted(true);
     }
   };
@@ -468,7 +469,7 @@ export function OrcamentoPage() {
                       type="button"
                       onClick={() =>
                         window.open(
-                          `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Sou menor de idade e preciso do modelo de autorização para tatuagem.")}`,
+                          `${formatWhatsAppLink(import.meta.env.VITE_WHATSAPP_NUMBER)}?text=${encodeURIComponent("Olá! Sou menor de idade e preciso do modelo de autorização para tatuagem.")}`,
                           "_blank",
                         )
                       }
@@ -839,7 +840,7 @@ export function OrcamentoPage() {
               <Instagram size={20} /> @gaabiink
             </a>
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              href={formatWhatsAppLink(WHATSAPP_NUMBER)}
               target="_blank"
               rel="noreferrer"
               style={{
