@@ -5,14 +5,13 @@ Projeto desenvolvido para o **Gabiink Tattoo Studio**, com foco em presença dig
 ## Sobre o projeto
 
 Este repositório reúne o desenvolvimento do sistema/site do **Gabiink Tattoo Studio**.  
-A aplicação foi pensada para apoiar a apresentação profissional do estúdio e também a organização de processos internos.
+A aplicação conta com uma página pública de solicitação de orçamento (dados do cliente, referência da tatuagem, tamanho e local) e um painel administrativo para a tatuadora gerenciar orçamentos, agendamentos, atendimentos e estoque de materiais.
 
 Além da presença digital, o projeto contempla estrutura para evolução de funcionalidades administrativas e operacionais do estúdio.
 
 ## Funcionalidades
 
 - Apresentação institucional do estúdio.
-- Exibição de identidade visual e proposta da marca.
 - Formulário de orçamento.
 - Organização de clientes e atendimentos.
 - Controle de materiais e estoque.
